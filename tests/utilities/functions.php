@@ -10,6 +10,6 @@ if(! function_exists('create')){
 if(! function_exists('make')){
     function make($model, $data = [], $count = null)
     {
-        return factory($model, $count)->create($data);
+        return factory($model, $count)->make($data);
     }
 }
