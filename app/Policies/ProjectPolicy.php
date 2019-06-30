@@ -30,7 +30,6 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project)
     {
-        return $user->is($project->owner);
     }
 
     /**
@@ -53,7 +52,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project)
     {
-        //
+        return $user->is($project->owner);
     }
 
     /**

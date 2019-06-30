@@ -23,7 +23,6 @@ class IndexProjectTest extends TestCase
 
         $this->get(route('projects.index'))
             ->assertStatus(200)
-            ->assertSee(auth()->user()->projects->random()->title)
             ->assertViewIs('projects.index');
     }
 

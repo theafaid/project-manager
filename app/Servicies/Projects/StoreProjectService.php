@@ -15,12 +15,7 @@ class StoreProjectService
 
     public function handle($data)
     {
-        $this->project->create([
-            'title' => $data['title'],
-            'slug' => \Str::slug($data['title']),
-            'description' => $data['description'],
-            'owner_id' => $data['owner_id']
-        ]);
+        $this->project->create($this->handleData($data));
     }
 
     private function handleData($data)

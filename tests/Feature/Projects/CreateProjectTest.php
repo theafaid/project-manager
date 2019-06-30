@@ -23,6 +23,8 @@ class CreateProjectTest extends TestCase
     /** @test */
     function project_requires_title_and_description_and_owner()
     {
+        $this->signIn();
+
         $this->post(route('projects.store'), [])
             ->assertSessionHasErrors(['title', 'description', 'owner_id']);
     }

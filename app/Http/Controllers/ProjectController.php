@@ -45,15 +45,16 @@ class ProjectController extends Controller
         return redirect()->route('projects.index');
     }
 
+
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Project $project)
     {
-        $this->authorize('view', $project);
+        $this->authorize('update', $project);
         return view('projects.show', compact('project'));
     }
 
