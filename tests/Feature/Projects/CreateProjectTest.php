@@ -10,6 +10,8 @@ class CreateProjectTest extends TestCase
     /** @test **/
     function a_user_can_create_a_project()
     {
+        $this->signIn();
+
         $project = make(Project::class);
 
         $this->post(route('projects.store'), $project->toArray())

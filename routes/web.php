@@ -1,3 +1,9 @@
 <?php
 
-Route::resource('projects', 'ProjectController');
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('projects', 'ProjectController');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
