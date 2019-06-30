@@ -16,10 +16,4 @@ class ProjectRepository
     {
         return $this->project->$name(...$arguments);
     }
-
-    public function create($data)
-    {
-
-
-    }
 }

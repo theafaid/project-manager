@@ -15,13 +15,21 @@ class StoreProjectService
 
     public function handle($data)
     {
-        $this->project->create($this->handleData($data));
+        $this->project->create([
+            'title' => $data['title'],
+            'slug' => \Str::slug($data['title']),
+            'description' => $data['description'],
+            'owner_id' => $data['owner_id']
+        ]);
     }
 
     private function handleData($data)
     {
-        return array_merge($data, [
-            'slug' => \Str::slug($data['title'])
-        ]);
+        return [
+            'title' => $data['title'],
+            'slug' => \Str::slug($data['title']),
+            'description' => $data['description'],
+            'owner_id' => $data['owner_id']
+        ];
     }
 }

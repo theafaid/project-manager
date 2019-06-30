@@ -12,7 +12,7 @@ class ViewProjectTest extends TestCase
     {
         $project = create(Project::class );
 
-        $this->get(route('projects.show', $project->id))
+        $this->get(route('projects.show', $project->slug))
             ->assertStatus(200)
             ->assertViewIs('projects.show')
             ->assertSee($project->title);

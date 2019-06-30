@@ -25,7 +25,8 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:5000'
+            'description' => 'required|string|max:5000',
+            'owner_id' => 'required|integer|exists:users,id'
         ];
     }
 }

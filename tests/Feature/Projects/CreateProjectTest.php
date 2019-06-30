@@ -10,8 +10,6 @@ class CreateProjectTest extends TestCase
     /** @test **/
     function a_user_can_create_a_project()
     {
-        $this->signIn();
-        $this->withExceptionHandling();
         $project = make(Project::class);
 
         $this->post(route('projects.store'), $project->toArray())
@@ -21,11 +19,9 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    function project_requires_title_and_description()
+    function project_requires_title_and_description_and_owner()
     {
         $this->post(route('projects.store'), [])
-            ->assertSessionHasErrors(['title', 'description']);
+            ->assertSessionHasErrors(['title', 'description', 'owner_id']);
     }
-
-
 }
