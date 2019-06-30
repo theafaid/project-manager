@@ -14,4 +14,9 @@ class Project extends Model
     {
         return "slug";
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
 }
