@@ -45,4 +45,21 @@ class ProjectTasksTest extends TestCase
         $this->post(route('projects.tasks.store', $projectByOther->slug), ['body' => 'test'])
             ->assertStatus(403);
     }
+
+    /** @test */
+    function a_user_can_update_a_task()
+    {
+        $this->signIn();
+
+        $project = create(Project::class, ['owner_id' => auth()->id()]);
+        $task = $project->tasks()->create(make(Task::class)->toArray());
+
+        $this->patch(route('projects.tasks.update', [$project->slug, $task->id]), [
+            'body' => 'new text body',
+            'completed' => true
+        ])->assertRedirect(route('projects.show', $project->slug));
+
+        $this->assertTrue($task->fresh()->hasCompleted());
+        $this->assertDatabaseHas('tasks', ['body' => 'new text body']);
+    }
 }
