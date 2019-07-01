@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Servicies\Projects\StoreProjectService;
+use App\Services\Projects\StoreProjectService;
 use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Http\Request;
 
