@@ -6,8 +6,8 @@ use App\Models\Task;
 use App\Models\Project;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
-use App\Services\Projects\StoreTaskService;
-use App\Services\Projects\UpdateTaskService;
+use App\Services\Tasks\StoreTaskService;
+use App\Services\Tasks\UpdateTaskService;
 
 class ProjectTasksController extends Controller
 {

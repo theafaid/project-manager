@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Projects;
+namespace App\Services\Tasks;
 
 
 class UpdateTaskService
