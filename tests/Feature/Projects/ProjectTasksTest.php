@@ -62,4 +62,15 @@ class ProjectTasksTest extends TestCase
         $this->assertTrue($task->fresh()->hasCompleted());
         $this->assertDatabaseHas('tasks', ['body' => 'new text body']);
     }
+
+    /** @test */
+    function storing_a_task_will_update_last_update_time_for_its_project()
+    {
+        $project = create(Project::class);
+
+        $project->tasks()->save(make(Task::class));
+
+
+        $this->assertEquals($project->tasks()->first()->created_at, $project->updated_at);
+    }
 }
