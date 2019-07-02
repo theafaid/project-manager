@@ -15,7 +15,7 @@ class CreateProjectTest extends TestCase
         $project = make(Project::class);
 
         $this->post(route('projects.store'), $project->toArray())
-            ->assertRedirect(route('projects.index'));
+            ->assertRedirect(route('projects.show', $project->slug));
 
         $this->assertDatabaseHas('projects', $project->toArray());
     }

@@ -39,10 +39,10 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        app(StoreProjectService::class)
+        $project = app(StoreProjectService::class)
             ->handle($request->validated());
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.show', $project->slug);
     }
 
 

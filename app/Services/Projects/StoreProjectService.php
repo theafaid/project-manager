@@ -15,7 +15,7 @@ class StoreProjectService
 
     public function handle($data)
     {
-        $this->project->create($this->handleData($data));
+        return $this->project->create($this->handleData($data));
     }
 
     private function handleData($data)
