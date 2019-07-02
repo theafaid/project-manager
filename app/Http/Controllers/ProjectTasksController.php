@@ -23,8 +23,6 @@ class ProjectTasksController extends Controller
 
     public function update(Project $project, Task $task, UpdateTaskRequest $request)
     {
-        $this->authorize('update', $task->project);
-
         app(UpdateTaskService::class)->handle($task, $request->validated());
 
         return redirect()->route('projects.show', $project);
