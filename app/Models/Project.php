@@ -10,6 +10,12 @@ class Project extends Model
         'title', 'slug', 'description', 'owner_id', 'notes'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+
+    }
     public function getRouteKeyName()
     {
         return "slug";
@@ -23,5 +29,10 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class, 'project_id', 'id');
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
     }
 }
