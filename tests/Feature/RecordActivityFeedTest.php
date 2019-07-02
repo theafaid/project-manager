@@ -72,8 +72,6 @@ class RecordActivityFeedTest extends TestCase
         $project = create(Project::class, ['owner_id' => auth()->id()]);
         $task = $project->tasks()->create(make(Task::class)->toArray());
 
-        $this->withoutExceptionHandling();
-
         $this->patch(route('projects.tasks.update', [$project->slug, $task->id]), [
             'body' => 'task',
             'completed' =>  0
@@ -81,5 +79,24 @@ class RecordActivityFeedTest extends TestCase
 
         $this->assertCount(3, $activities = $project->fresh()->activities);
         $this->assertEquals('incompleted_task', $activities[2]->type);
+    }
+
+    /** @test */
+    function deleting_a_task()
+    {
+        $this->signIn();
+
+        $this->withoutExceptionHandling();
+
+        $project = create(Project::class, ['owner_id' => auth()->id()]);
+        $task = $project->tasks()->create(make(Task::class)->toArray());
+
+        $this->assertCount(2, $activities = $project->fresh()->activities);
+
+        $this->delete(route('projects.tasks.destroy', [$task->id]));
+
+        $this->assertCount(3, $activities = $project->fresh()->activities);
+        $this->assertEquals('deleted_task', $activities[2]->type);
+
     }
 }

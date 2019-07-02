@@ -20,8 +20,12 @@ class Task extends Model
 
         static::updated(function($task){
             $task->project->recordActivity(
-                $task->completed_at ? 'completed_task' : 'incompleted_task'
+                $task->hasCompleted() ? 'completed_task' : 'incompleted_task'
             );
+        });
+
+        static::deleted(function($task){
+            $task->project->recordActivity('deleted_task');
         });
     }
     public function hasCompleted()

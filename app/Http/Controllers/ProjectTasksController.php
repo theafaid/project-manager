@@ -27,4 +27,13 @@ class ProjectTasksController extends Controller
 
         return redirect()->route('projects.show', $project);
     }
+
+    public function destroy(Task $task)
+    {
+        $this->authorize('update', $task->project);
+
+        $task->delete();
+
+        return redirect()->back();
+    }
 }
