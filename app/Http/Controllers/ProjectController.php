@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateProjectRequest;
-use App\Models\Project;
-use App\Services\Projects\StoreProjectService;
 use App\Services\Projects\UpdateProjectService;
+use App\Services\Projects\StoreProjectService;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
+use App\Models\Project;
 
 class ProjectController extends Controller
 {
@@ -70,18 +70,22 @@ class ProjectController extends Controller
         //
     }
 
+
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @param UpdateProjectRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Project $project, UpdateProjectRequest $request)
     {
         $this->authorize('update', $project);
 
-        $project = app(UpdateProjectService::class)->handle($project, $request->validated());
+        $project = app(UpdateProjectService::class)->handle(
+            $project,
+            $request->validated()
+        );
 
         return redirect()->route('projects.show', $project->slug);
     }
