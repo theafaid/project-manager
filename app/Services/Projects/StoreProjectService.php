@@ -25,7 +25,7 @@ class StoreProjectService
             'slug' => \Str::slug($data['title']),
             'description' => $data['description'],
             'notes' => $data['notes'],
-            'owner_id' => $data['owner_id']
+            'owner_id' => auth()->id()
         ];
     }
 }

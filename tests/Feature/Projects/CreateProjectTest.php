@@ -17,7 +17,7 @@ class CreateProjectTest extends TestCase
         $this->post(route('projects.store'), $project->toArray())
             ->assertRedirect(route('projects.show', $project->slug));
 
-        $this->assertDatabaseHas('projects', $project->toArray());
+        $this->assertDatabaseHas('projects', ['slug' => $project->slug]);
     }
 
     /** @test */
@@ -26,6 +26,6 @@ class CreateProjectTest extends TestCase
         $this->signIn();
 
         $this->post(route('projects.store'), [])
-            ->assertSessionHasErrors(['title', 'description', 'owner_id']);
+            ->assertSessionHasErrors(['title', 'description']);
     }
 }

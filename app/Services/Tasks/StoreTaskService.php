@@ -8,14 +8,4 @@ class StoreTaskService
     {
         $project->tasks()->create($data);
     }
-
-    private function store()
-    {
-
-    }
-
-    private function lastUpdated()
-    {
-
-    }
 }

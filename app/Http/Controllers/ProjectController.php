@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Services\Projects\StoreProjectService;
+use App\Services\Projects\UpdateProjectService;
 use App\Http\Requests\StoreProjectRequest;
-use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -76,9 +77,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Project $project, UpdateProjectRequest $request)
     {
-        //
+        $this->authorize('update', $project);
+
+        $project = app(UpdateProjectService::class)->handle($project, $request->validated());
+
+        return redirect()->route('projects.show', $project->slug);
     }
 
     /**
