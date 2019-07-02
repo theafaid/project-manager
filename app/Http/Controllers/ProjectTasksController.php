@@ -13,8 +13,6 @@ class ProjectTasksController extends Controller
 {
     public function store(Project $project, StoreTaskRequest $request)
     {
-        $this->authorize('update', $project);
-
         app(StoreTaskService::class)->handle(
             $project,
             $request->validated()

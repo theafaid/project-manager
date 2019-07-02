@@ -79,12 +79,9 @@ class ProjectController extends Controller
      * @param Project $project
      * @param UpdateProjectRequest $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Project $project, UpdateProjectRequest $request)
     {
-        $this->authorize('update', $project);
-
         $project = app(UpdateProjectService::class)->handle(
             $project,
             $request->validated()
