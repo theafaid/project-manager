@@ -59,15 +59,18 @@ class ProjectController extends Controller
         return view('projects.show', compact('project'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        $this->authorize('update', $project);
+
+        return view('projects.edit', compact('project'));
     }
 
 
