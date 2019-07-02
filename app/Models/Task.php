@@ -9,25 +9,6 @@ class Task extends Model
     protected $fillable = ['body', 'project_id', 'completed_at'];
     protected $touches = ['project'];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function($task){
-            $task->project->recordActivity('created_task');
-
-        });
-
-        static::updated(function($task){
-            $task->project->recordActivity(
-                $task->hasCompleted() ? 'completed_task' : 'incompleted_task'
-            );
-        });
-
-        static::deleted(function($task){
-            $task->project->recordActivity('deleted_task');
-        });
-    }
     public function hasCompleted()
     {
         return !! $this->completed_at;
