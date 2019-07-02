@@ -19,9 +19,9 @@ class Task extends Model
         });
 
         static::updated(function($task){
-            if(! $task->completed_at) return;
-
-            $task->project->recordActivity('completed_task');
+            $task->project->recordActivity(
+                $task->completed_at ? 'completed_task' : 'incompleted_task'
+            );
         });
     }
     public function hasCompleted()

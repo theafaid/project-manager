@@ -6,10 +6,10 @@ use App\Models\Project;
 use App\Models\Task;
 use Tests\TestCase;
 
-class ActivityFeedTest extends TestCase
+class RecordActivityFeedTest extends TestCase
 {
     /** @test */
-    function creating_a_project_record_activity()
+    function creating_a_project()
     {
         $project = create(Project::class);
 
@@ -19,7 +19,7 @@ class ActivityFeedTest extends TestCase
     }
 
     /** @test */
-    function updating_a_project_record_activity()
+    function updating_a_project()
     {
         $this->signIn();
 
@@ -36,7 +36,7 @@ class ActivityFeedTest extends TestCase
     }
 
     /** @test */
-    function creating_new_task_records_project_activity()
+    function creating_new_task()
     {
         $project = create(Project::class);
 
@@ -48,7 +48,7 @@ class ActivityFeedTest extends TestCase
     }
 
     /** @test */
-    function completing_a_task_records_project_activity()
+    function completing_a_task()
     {
         $this->signIn();
 
@@ -62,5 +62,24 @@ class ActivityFeedTest extends TestCase
 
         $this->assertCount(3, $activities = $project->fresh()->activities);
         $this->assertEquals('completed_task', $activities[2]->type);
+    }
+
+    /** @test */
+    function incompleting_a_task()
+    {
+        $this->signIn();
+
+        $project = create(Project::class, ['owner_id' => auth()->id()]);
+        $task = $project->tasks()->create(make(Task::class)->toArray());
+
+        $this->withoutExceptionHandling();
+
+        $this->patch(route('projects.tasks.update', [$project->slug, $task->id]), [
+            'body' => 'task',
+            'completed' =>  0
+        ]);
+
+        $this->assertCount(3, $activities = $project->fresh()->activities);
+        $this->assertEquals('incompleted_task', $activities[2]->type);
     }
 }
